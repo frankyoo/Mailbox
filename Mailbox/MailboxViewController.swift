@@ -46,11 +46,7 @@ class MailboxViewController: UIViewController {
         let point = sender.locationInView(singleMessageView)
         let velocity = sender.velocityInView(singleMessageView)
         
-        self.laterImageView.alpha = 0.5
-        self.listImageView.alpha = 0
-        self.archiveImageView.alpha = 0.5
-        self.deleteImageView.alpha = 0
-        self.backgroundMessageView.backgroundColor = UIColor.init(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1.0)
+        
         
         if sender.state == UIGestureRecognizerState.Began {
 //            print("Began - Translation: \(translation.x)")
@@ -58,6 +54,12 @@ class MailboxViewController: UIViewController {
             messageOriginalCenter = singleMessageView.center
             laterImageOriginalCenter = laterImageView.center
             archiveImageOriginalCenter = archiveImageView.center
+            
+            self.laterImageView.alpha = 0.5
+            self.listImageView.alpha = 0
+            self.archiveImageView.alpha = 0.5
+            self.deleteImageView.alpha = 0
+            self.backgroundMessageView.backgroundColor = UIColor.init(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1.0)
             
             
         } else if sender.state == UIGestureRecognizerState.Changed {
@@ -111,27 +113,41 @@ class MailboxViewController: UIViewController {
             if translation.x < -200 {
                 UIView.animateWithDuration(0.4, animations: { () -> Void in
                     self.backgroundMessageView.backgroundColor = UIColor.init(red: 216/255.0, green: 165/255.0, blue: 117/255.0, alpha: 1.0)
+                    
+                    self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x - 320, y: self.messageOriginalCenter.y)
+                    
+                    self.listImageView.center = CGPoint(x: self.messageOriginalCenter.x - 120, y: self.messageOriginalCenter.y)
+                    
                     self.laterImageView.alpha = 0
                     self.listImageView.alpha = 0
                     self.archiveImageView.alpha = 0
                     self.deleteImageView.alpha = 0
-                    
-                    self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x - 320, y: self.messageOriginalCenter.y)
                     
                     self.listView.alpha = 1
                     
                     }, completion: { (Bool) -> Void in
+                        
+                        // Scroll the scrollview up
+                        UIView.animateWithDuration(0.2, animations: { () -> Void in
+                            
+                            self.feedScrollView.frame.origin.y = self.feedScrollView.frame.origin.y - 86
+                            
+                        })
                 })
                 
             } else if translation.x > 200 {
                 UIView.animateWithDuration(0.4, animations: { () -> Void in
+                    
                     self.backgroundMessageView.backgroundColor = UIColor.init(red: 235/255.0, green: 84/255.0, blue: 51/255.0, alpha: 1.0)
+                    
+                    self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x + 320, y: self.messageOriginalCenter.y)
+                    
+                    self.deleteImageView.center = CGPoint(x: self.messageOriginalCenter.x + 120, y: self.messageOriginalCenter.y)
+                    
                     self.laterImageView.alpha = 0
                     self.listImageView.alpha = 0
                     self.archiveImageView.alpha = 0
                     self.deleteImageView.alpha = 0
-                    
-                    self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x + 320, y: self.messageOriginalCenter.y)
                     
                     }, completion: { (Bool) -> Void in
                         
@@ -148,15 +164,25 @@ class MailboxViewController: UIViewController {
                     
                     self.backgroundMessageView.backgroundColor = UIColor.init(red: 250/255.0, green: 211/255.0, blue: 51/255.0, alpha: 1.0)
                     
+                    self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x - 320, y: self.messageOriginalCenter.y)
+                    
+                    self.laterImageView.center = CGPoint(x: self.messageOriginalCenter.x - 120, y: self.messageOriginalCenter.y)
+                    
                     self.laterImageView.alpha = 0
                     self.listImageView.alpha = 0
                     self.archiveImageView.alpha = 0
                     self.deleteImageView.alpha = 0
                     
-                    self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x - 320, y: self.messageOriginalCenter.y)
-                    
                     self.scheduleView.alpha = 1
+                    
                     }, completion: { (Bool) -> Void in
+                        
+                        // Scroll the scrollview up
+                        UIView.animateWithDuration(0.2, animations: { () -> Void in
+                            
+                            self.feedScrollView.frame.origin.y = self.feedScrollView.frame.origin.y - 86
+                            
+                        })
                 })
                 
             } else if translation.x > 60 && translation.x < 200 {
@@ -164,14 +190,23 @@ class MailboxViewController: UIViewController {
                     
                     self.backgroundMessageView.backgroundColor = UIColor.init(red: 112/255.0, green: 217/255.0, blue: 98/255.0, alpha: 1.0)
                     
+                    self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x + 320, y: self.messageOriginalCenter.y)
+                    
+                    self.archiveImageView.center = CGPoint(x: self.messageOriginalCenter.x + 120, y: self.messageOriginalCenter.y)
+                    
                     self.laterImageView.alpha = 0
                     self.listImageView.alpha = 0
                     self.archiveImageView.alpha = 0
                     self.deleteImageView.alpha = 0
-                    
-                    self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x + 320, y: self.messageOriginalCenter.y)
 
                     }, completion: { (Bool) -> Void in
+                        
+                        // Scroll the scrollview up
+                        UIView.animateWithDuration(0.2, animations: { () -> Void in
+                            
+                            self.feedScrollView.frame.origin.y = self.feedScrollView.frame.origin.y - 86
+                            
+                        })
                 })
                 
             } else {
