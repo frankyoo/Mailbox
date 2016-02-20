@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MailboxViewController: UIViewController {
+class MailboxViewController: UIViewController, UIScrollViewDelegate {
     
     var messageOriginalCenter: CGPoint!
     var laterImageOriginalCenter: CGPoint!
@@ -28,6 +28,9 @@ class MailboxViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        feedScrollView.delegate = self
+        
         feedScrollView.contentSize = CGSize(width: 320, height: 1432)
         feedScrollView.frame.size = CGSize(width: 320, height: 568)
         
@@ -117,7 +120,7 @@ class MailboxViewController: UIViewController {
 
         } else if sender.state == UIGestureRecognizerState.Ended {
 
-            let velocity = sender.velocityInView(view)
+//            let velocity = sender.velocityInView(view)
             
             if translation.x < -200 {
                 UIView.animateWithDuration(0.4, animations: { () -> Void in
@@ -135,13 +138,7 @@ class MailboxViewController: UIViewController {
                     self.listView.alpha = 1
                     
                     }, completion: { (Bool) -> Void in
-                        
-                        // Scroll the scrollview up
-                        UIView.animateWithDuration(0.2, animations: { () -> Void in
-                            
-                            self.feedScrollView.frame.origin.y = self.feedScrollView.frame.origin.y - 86
-                            
-                        })
+
                 })
                 
             } else if translation.x > 200 {
@@ -162,10 +159,12 @@ class MailboxViewController: UIViewController {
                         
                         // Scroll the scrollview up
                         UIView.animateWithDuration(0.2, animations: { () -> Void in
-
+                            
                             self.feedScrollView.frame.origin.y = self.feedScrollView.frame.origin.y - 86
                             
                         })
+                        
+                        self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x, y: self.messageOriginalCenter.y)
                 })
                 
             } else if translation.x < -60 && translation.x > -200 {
@@ -186,17 +185,11 @@ class MailboxViewController: UIViewController {
                     
                     }, completion: { (Bool) -> Void in
                         
-                        // Scroll the scrollview up
-                        UIView.animateWithDuration(0.2, animations: { () -> Void in
-                            
-                            self.feedScrollView.frame.origin.y = self.feedScrollView.frame.origin.y - 86
-                            
-                        })
                 })
                 
             } else if translation.x > 60 && translation.x < 200 {
                 UIView.animateWithDuration(0.4, animations: { () -> Void in
-                    
+
                     self.backgroundMessageView.backgroundColor = UIColor.init(red: 112/255.0, green: 217/255.0, blue: 98/255.0, alpha: 1.0)
                     
                     self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x + 320, y: self.messageOriginalCenter.y)
@@ -216,7 +209,9 @@ class MailboxViewController: UIViewController {
                             self.feedScrollView.frame.origin.y = self.feedScrollView.frame.origin.y - 86
                             
                         })
-                })
+                        
+                        self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x, y: self.messageOriginalCenter.y)
+               })
                 
             } else {
                 UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: [], animations: { () -> Void in
@@ -244,22 +239,66 @@ class MailboxViewController: UIViewController {
 
     @IBAction func didPressSchedule(sender: AnyObject) {
         UIView.animateWithDuration(0.4, animations: { () -> Void in
+
             self.scheduleView.alpha = 0
+            self.feedScrollView.frame.origin.y = self.feedScrollView.frame.origin.y - 86
+            
+            }, completion: { (Bool) -> Void in
+            
+                // Scroll the scrollview up
+                UIView.animateWithDuration(0.4, animations: { () -> Void in
+                
+                self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x, y: self.messageOriginalCenter.y)
+                })
         })
     }
+    
     @IBAction func didPressList(sender: AnyObject) {
         UIView.animateWithDuration(0.4, animations: { () -> Void in
+
             self.listView.alpha = 0
+            self.feedScrollView.frame.origin.y = self.feedScrollView.frame.origin.y - 86
+            
+            }, completion: { (Bool) -> Void in
+                
+                // Scroll the scrollview up
+                UIView.animateWithDuration(0.4, animations: { () -> Void in
+                    
+                    self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x, y: self.messageOriginalCenter.y)
+                    
+                })
         })
     }
-    /*
-    // MARK: - Navigation
+    
+    func scrollViewDidScroll(feedScrollView: UIScrollView) {
+        // If the scrollView has been scrolled down by 50px or more...
+        
+        if feedScrollView.frame.origin.y != 144 {
+            if feedScrollView.contentOffset.y <= -50 {
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+                self.feedScrollView.frame.origin.y = self.feedScrollView.frame.origin.y + 86
+                laterImageView.center = laterImageOriginalCenter
+                archiveImageView.center = archiveImageOriginalCenter
+                singleMessageView.center = messageOriginalCenter
+                
+                self.laterImageView.alpha = 0.5
+                self.listImageView.alpha = 0
+                self.archiveImageView.alpha = 0.5
+                self.deleteImageView.alpha = 0
+                self.backgroundMessageView.backgroundColor = UIColor.init(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1.0)
+                
+            }
+        }
     }
-    */
+    
+/*
+// MARK: - Navigation
+  
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+// Get the new view controller using segue.destinationViewController.
+// Pass the selected object to the new view controller.
+}
+*/
 
 }
