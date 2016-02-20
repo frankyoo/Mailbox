@@ -52,7 +52,6 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
         
         
         if sender.state == UIGestureRecognizerState.Began {
-//            print("Began - Translation: \(translation.x)")
 
             messageOriginalCenter = singleMessageView.center
             laterImageOriginalCenter = laterImageView.center
@@ -66,7 +65,6 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
             
             
         } else if sender.state == UIGestureRecognizerState.Changed {
-//            print("Changed - Translation: \(translation.x)")
             
             singleMessageView.center = CGPoint(x: messageOriginalCenter.x + translation.x, y: messageOriginalCenter.y)
             laterImageView.center = CGPoint(x: laterImageView.center.x, y: laterImageView.center.y)
@@ -271,10 +269,10 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(feedScrollView: UIScrollView) {
-        // If the scrollView has been scrolled down by 50px or more...
+        // If the scrollView has been scrolled down by 86px or more...
         
         if feedScrollView.frame.origin.y != 144 {
-            if feedScrollView.contentOffset.y <= -50 {
+            if feedScrollView.contentOffset.y <= -86 {
 
                 self.feedScrollView.frame.origin.y = self.feedScrollView.frame.origin.y + 86
                 laterImageView.center = laterImageOriginalCenter
