@@ -134,6 +134,13 @@ class MailboxViewController: UIViewController {
                     self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x + 320, y: self.messageOriginalCenter.y)
                     
                     }, completion: { (Bool) -> Void in
+                        
+                        // Scroll the scrollview up
+                        UIView.animateWithDuration(0.2, animations: { () -> Void in
+
+                            self.feedScrollView.frame.origin.y = self.feedScrollView.frame.origin.y - 86
+                            
+                        })
                 })
                 
             } else if translation.x < -60 && translation.x > -200 {
