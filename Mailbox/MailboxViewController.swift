@@ -104,6 +104,15 @@ class MailboxViewController: UIViewController {
                 self.deleteImageView.alpha = 1
                 
                 deleteImageView.center = CGPoint(x: singleMessageView.center.x - 180, y: messageOriginalCenter.y)
+            
+            } else if translation.x < 60 || translation.x > -60 {
+                
+                self.laterImageView.alpha = 0.5
+                self.listImageView.alpha = 0
+                self.archiveImageView.alpha = 0.5
+                self.deleteImageView.alpha = 0
+                self.backgroundMessageView.backgroundColor = UIColor.init(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1.0)
+                
             }
 
         } else if sender.state == UIGestureRecognizerState.Ended {
@@ -217,11 +226,17 @@ class MailboxViewController: UIViewController {
                 
                 laterImageView.center = laterImageOriginalCenter
                 archiveImageView.center = archiveImageOriginalCenter
+                singleMessageView.center = messageOriginalCenter
                 
                 self.laterImageView.alpha = 0.5
                 self.listImageView.alpha = 0
                 self.archiveImageView.alpha = 0.5
                 self.deleteImageView.alpha = 0
+                self.backgroundMessageView.backgroundColor = UIColor.init(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1.0)
+                
+                self.singleMessageView.center = CGPoint(x: self.messageOriginalCenter.x, y: self.messageOriginalCenter.y)
+                
+                
             }
             
         }
