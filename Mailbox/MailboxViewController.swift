@@ -11,6 +11,8 @@ import UIKit
 class MailboxViewController: UIViewController {
     
     var messageOriginalCenter: CGPoint!
+    var laterImageOriginalCenter: CGPoint!
+    var archiveImageOriginalCenter: CGPoint!
 
     @IBOutlet weak var feedScrollView: UIScrollView!
     @IBOutlet weak var singleMessageView: UIView!
@@ -41,9 +43,9 @@ class MailboxViewController: UIViewController {
         let point = sender.locationInView(singleMessageView)
         let velocity = sender.velocityInView(singleMessageView)
         
-        self.laterImageView.alpha = 0.3
+        self.laterImageView.alpha = 0.5
         self.listImageView.alpha = 0
-        self.archiveImageView.alpha = 0.3
+        self.archiveImageView.alpha = 0.5
         self.deleteImageView.alpha = 0
         self.backgroundMessageView.backgroundColor = UIColor.init(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1.0)
         
@@ -51,6 +53,8 @@ class MailboxViewController: UIViewController {
 //            print("Began - Translation: \(translation.x)")
 
             messageOriginalCenter = singleMessageView.center
+            laterImageOriginalCenter = laterImageView.center
+            archiveImageOriginalCenter = archiveImageView.center
             
             
         } else if sender.state == UIGestureRecognizerState.Changed {
@@ -58,6 +62,7 @@ class MailboxViewController: UIViewController {
             
             singleMessageView.center = CGPoint(x: messageOriginalCenter.x + translation.x, y: messageOriginalCenter.y)
             laterImageView.center = CGPoint(x: laterImageView.center.x, y: laterImageView.center.y)
+            archiveImageView.center = CGPoint(x: archiveImageView.center.x, y: archiveImageView.center.y)
             
             if translation.x < -60 && translation.x > -200 {
                 self.backgroundMessageView.backgroundColor = UIColor.init(red: 250/255.0, green: 211/255.0, blue: 51/255.0, alpha: 1.0)
@@ -66,7 +71,7 @@ class MailboxViewController: UIViewController {
                 self.archiveImageView.alpha = 0
                 self.deleteImageView.alpha = 0
                 
-                laterImageView.center = CGPoint(x: singleMessageView.center.x + 180, y: singleMessageView.center.y - 143)
+                laterImageView.center = CGPoint(x: singleMessageView.center.x + 187, y: singleMessageView.center.y - 143)
                 
             } else if translation.x < -200 {
                 self.backgroundMessageView.backgroundColor = UIColor.init(red: 216/255.0, green: 165/255.0, blue: 117/255.0, alpha: 1.0)
@@ -84,7 +89,7 @@ class MailboxViewController: UIViewController {
                 self.archiveImageView.alpha = 1
                 self.deleteImageView.alpha = 0
                 
-                archiveImageView.center = CGPoint(x: singleMessageView.center.x - 180, y: singleMessageView.center.y - 143)
+                archiveImageView.center = CGPoint(x: singleMessageView.center.x - 187, y: singleMessageView.center.y - 143)
                 
             } else if translation.x > 200 {
                 self.backgroundMessageView.backgroundColor = UIColor.init(red: 235/255.0, green: 84/255.0, blue: 51/255.0, alpha: 1.0)
@@ -111,6 +116,14 @@ class MailboxViewController: UIViewController {
                     self.singleMessageView.center = self.messageOriginalCenter
                     }, completion: { (Bool) -> Void in
                 })
+                
+                laterImageView.center = laterImageOriginalCenter
+                archiveImageView.center = archiveImageOriginalCenter
+                
+                self.laterImageView.alpha = 0.5
+                self.listImageView.alpha = 0
+                self.archiveImageView.alpha = 0.5
+                self.deleteImageView.alpha = 0
             }
             
         }
