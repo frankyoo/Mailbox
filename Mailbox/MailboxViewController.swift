@@ -77,7 +77,7 @@ class MailboxViewController: UIViewController {
                 
                 listImageView.center = CGPoint(x: singleMessageView.center.x + 180, y: singleMessageView.center.y - 143)
                 
-            } else if translation.x > 40 && translation.x < 200 {
+            } else if translation.x > 60 && translation.x < 200 {
                 self.backgroundMessageView.backgroundColor = UIColor.init(red: 112/255.0, green: 217/255.0, blue: 98/255.0, alpha: 1.0)
                 self.laterImageView.alpha = 0
                 self.listImageView.alpha = 0
