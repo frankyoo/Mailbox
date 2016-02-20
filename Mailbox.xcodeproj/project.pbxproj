@@ -14,6 +14,7 @@
 		C2C161C31C78498C00A21E7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2C161C11C78498C00A21E7C /* LaunchScreen.storyboard */; };
 		C2C161CE1C78498C00A21E7C /* MailboxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C161CD1C78498C00A21E7C /* MailboxTests.swift */; };
 		C2C161D91C78498C00A21E7C /* MailboxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C161D81C78498C00A21E7C /* MailboxUITests.swift */; };
+		C2C161E71C784DD000A21E7C /* MailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C161E61C784DD000A21E7C /* MailboxViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		C2C161D41C78498C00A21E7C /* MailboxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MailboxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2C161D81C78498C00A21E7C /* MailboxUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxUITests.swift; sourceTree = "<group>"; };
 		C2C161DA1C78498C00A21E7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2C161E61C784DD000A21E7C /* MailboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailboxViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				C2C161B81C78498C00A21E7C /* AppDelegate.swift */,
 				C2C161BA1C78498C00A21E7C /* ViewController.swift */,
 				C2C161BC1C78498C00A21E7C /* Main.storyboard */,
+				C2C161E61C784DD000A21E7C /* MailboxViewController.swift */,
 				C2C161BF1C78498C00A21E7C /* Assets.xcassets */,
 				C2C161C11C78498C00A21E7C /* LaunchScreen.storyboard */,
 				C2C161C41C78498C00A21E7C /* Info.plist */,
@@ -258,6 +261,7 @@
 			files = (
 				C2C161BB1C78498C00A21E7C /* ViewController.swift in Sources */,
 				C2C161B91C78498C00A21E7C /* AppDelegate.swift in Sources */,
+				C2C161E71C784DD000A21E7C /* MailboxViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
