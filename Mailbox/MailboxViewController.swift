@@ -13,7 +13,9 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
     var messageOriginalCenter: CGPoint!
     var laterImageOriginalCenter: CGPoint!
     var archiveImageOriginalCenter: CGPoint!
-
+    var parentOriginalViewCenter: CGPoint!
+    
+    @IBOutlet weak var parentView: UIView!
     @IBOutlet weak var feedScrollView: UIScrollView!
     @IBOutlet weak var singleMessageView: UIView!
     @IBOutlet weak var backgroundMessageView: UIView!
@@ -29,8 +31,15 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
 
         // Do any additional setup after loading the view.
         
-        feedScrollView.delegate = self
+        let edgeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: "onEdgePan:")
+        edgeGesture.edges = UIRectEdge.Left
+        parentView.addGestureRecognizer(edgeGesture)
         
+//        let parentViewGesture = UIScreenEdgePanGestureRecognizer(target: self, action: "onParentViewPan:")
+//        parentViewGesture.edges = UIRectEdge.Left
+//        parentView.addGestureRecognizer(parentViewGesture)
+        
+        feedScrollView.delegate = self
         feedScrollView.contentSize = CGSize(width: 320, height: 1432)
         feedScrollView.frame.size = CGSize(width: 320, height: 568)
         
@@ -289,6 +298,109 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
+    
+    @IBAction func onEdgePan(sender: UIScreenEdgePanGestureRecognizer) {
+        
+        let translation = sender.translationInView(parentView)
+                
+        if sender.state == UIGestureRecognizerState.Began {
+            
+            parentOriginalViewCenter = parentView.center
+//            let beganTranslation = translation.x
+            
+        } else if sender.state == UIGestureRecognizerState.Changed {
+            print("Change translation: \(translation.x)")
+            parentView.center = CGPoint(x: parentOriginalViewCenter.x + translation.x, y: parentOriginalViewCenter.y)
+            
+        } else if sender.state == UIGestureRecognizerState.Ended {
+            
+            print("End translation: \(translation.x)")
+            if translation.x >= 100 {
+                
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    
+                    self.parentView.center = CGPoint(x: self.parentOriginalViewCenter.x + 282, y: self.parentOriginalViewCenter.y)
+                    
+                    }, completion: { (Bool) -> Void in
+                        
+                })
+                
+            } else if translation.x < 100 {
+                
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    
+                    self.parentView.center = CGPoint(x: self.parentOriginalViewCenter.x, y: self.parentOriginalViewCenter.y)
+                    
+                    }, completion: { (Bool) -> Void in
+                        
+                })
+                
+            }
+            
+        }
+    }
+    
+    @IBAction func closeMenuButton(sender: AnyObject) {
+        
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            
+            self.parentView.center = CGPoint(x: self.parentOriginalViewCenter.x, y: self.parentOriginalViewCenter.y)
+            
+            }, completion: { (Bool) -> Void in
+                
+        })
+        
+    }
+    
+    
+    @IBAction func didPressCompose(sender: AnyObject) {
+        
+        
+        
+    }
+    
+    
+//    @IBAction func onParentViewPan(sender: UIPanGestureRecognizer) {
+//        
+//        let translation = sender.translationInView(parentView)
+//        
+//        if sender.state == UIGestureRecognizerState.Began {
+//            
+//            parentOriginalViewCenter = parentView.center
+//            
+//        } else if sender.state == UIGestureRecognizerState.Changed {
+////            print("Change translation: \(translation.x)")
+//            parentView.center = CGPoint(x: parentOriginalViewCenter.x + translation.x, y: parentOriginalViewCenter.y)
+//            
+//        } else if sender.state == UIGestureRecognizerState.Ended {
+//            
+////            print("End translation: \(translation.x)")
+//            if translation.x <= -60 {
+//                
+//                UIView.animateWithDuration(0.2, animations: { () -> Void in
+//                    
+//                    self.parentView.center = CGPoint(x: self.parentOriginalViewCenter.x, y: self.parentOriginalViewCenter.y)
+//                    
+//                    }, completion: { (Bool) -> Void in
+//                        
+//                })
+//                
+////            } else if translation.x < 100 {
+////                
+////                UIView.animateWithDuration(0.2, animations: { () -> Void in
+////                    
+////                    self.parentView.center = CGPoint(x: self.parentOriginalViewCenter.x, y: self.parentOriginalViewCenter.y)
+////                    
+////                    }, completion: { (Bool) -> Void in
+////                        
+////                })
+//    
+//            }
+//            
+//        }
+//    }
+
+
     
 /*
 // MARK: - Navigation
