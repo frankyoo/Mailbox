@@ -46,8 +46,8 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func didPanMessage(sender: UIPanGestureRecognizer) {
         let translation = sender.translationInView(singleMessageView)
-        let point = sender.locationInView(singleMessageView)
-        let velocity = sender.velocityInView(singleMessageView)
+//        let point = sender.locationInView(singleMessageView)
+//        let velocity = sender.velocityInView(singleMessageView)
         
         
         
@@ -273,18 +273,19 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
         
         if feedScrollView.frame.origin.y != 144 {
             if feedScrollView.contentOffset.y <= -86 {
-
-                self.feedScrollView.frame.origin.y = self.feedScrollView.frame.origin.y + 86
-                laterImageView.center = laterImageOriginalCenter
-                archiveImageView.center = archiveImageOriginalCenter
-                singleMessageView.center = messageOriginalCenter
                 
-                self.laterImageView.alpha = 0.5
-                self.listImageView.alpha = 0
-                self.archiveImageView.alpha = 0.5
-                self.deleteImageView.alpha = 0
-                self.backgroundMessageView.backgroundColor = UIColor.init(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1.0)
-                
+                UIView.animateWithDuration(0.4, animations: { () -> Void in
+                    self.feedScrollView.frame.origin.y = self.feedScrollView.frame.origin.y + 86
+                    self.laterImageView.center = self.laterImageOriginalCenter
+                    self.archiveImageView.center = self.archiveImageOriginalCenter
+                    self.singleMessageView.center = self.messageOriginalCenter
+                    
+                    self.laterImageView.alpha = 0.5
+                    self.listImageView.alpha = 0
+                    self.archiveImageView.alpha = 0.5
+                    self.deleteImageView.alpha = 0
+                    self.backgroundMessageView.backgroundColor = UIColor.init(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1.0)
+                })
             }
         }
     }
